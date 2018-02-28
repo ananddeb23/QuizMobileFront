@@ -14,8 +14,8 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
 
-  QuestionOuter: { "display": "flex", "flexDirection": "column",
-   "margin": 10, "alignItems": "stretch" },
+  QuestionOuter: { "flex": 0,
+  "height": 100  },
   QuestionHeader: {
     "borderWidth": 1,
     "borderColor": 'black',
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     "borderColor": 'black',
   },
   QuestionsContainer:{
-    "display": "flex", "flexDirection": "column", "margin": "10%", "backgroundColor": "white", "color": "black",
-    "justifyContent": "space-around",
+    "flex": 1, "backgroundColor": "white", "color": "black",
+    "justifyContent": "center", "alignItems": "stretch", "height": 1200,
     "overflow": "scroll"
   },
   CalculateButtonHold: 
-    {"marginTop": 60, "display": "flex",
+    {"marginTop": 10, "display": "flex",
      "justifyContent": "center", "alignItems": "center" },
   
   CalculateButton: 
@@ -151,8 +151,8 @@ class QuestionsContainer extends React.Component {
             // console.log(optionsarr);
 
             const val = (
-              <View style={styles.QuestionOuter}>
-                <View style={styles.QuestionHeader}> <Text> Question {`  ${i + 1}`}</Text></View>
+              <View >
+                <View > <Text> Question {`  ${i + 1}`}</Text></View>
                 <View style={styles.QuestionContent}> <Text> {this.props.questions[i].question}</Text></View>
 
                 <View style={styles.QuestionOptions}> {checkbox}</View>

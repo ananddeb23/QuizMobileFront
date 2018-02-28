@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
  Welcome:
  {
-   "textAlign": "center", "backgroundColor": "#6BE5F0", "flex": 1,
+   "textAlign": "center", "backgroundColor": "#6BE5F0", "flex": 0,
   "justifyContent": "center", 
  "alignItems": "center", "paddingTop": "10%"},
  WelcomeBlack: { "fontSize": 40, "color": "black" },

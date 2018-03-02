@@ -27,7 +27,6 @@ class App extends Component {
     if (this.props.page === 'login') {
       return (
         <View style={styles.App}>
-          
           <Welcome />
           <LoginInput />
         </View>
@@ -35,14 +34,12 @@ class App extends Component {
     } else if (this.props.page === 'showquestions') {
       return (
         <View style={styles.App}>
-       
           <QuestionsContainer />
         </View>
       );
     } else if (this.props.page === 'showscores') {
       return (
         <View style={styles.App}>
-         
           <ScoresContainer />
         </View>
       );

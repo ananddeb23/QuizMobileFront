@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  View, Text, TextInput, StyleSheet, Button
+  View, Text, TextInput, StyleSheet, TouchableOpacity
 } from 'react-native';
 import axios from 'axios';
 import { getQuestions } from '../../redux/actions';
@@ -11,17 +11,18 @@ import PropTypes from 'prop-types';
 const styles = StyleSheet.create({
 
   LoginInput:
-  { "backgroundColor": "white", "color": "black", 
+  { "backgroundColor": "white", 
   "alignItems": "center",
    "padding": 30, "flex": 1, "justifyContent": "center" },
-  LoginText: { "fontSize": 30 },
-  LoginLabel: { "fontSize": 20 },
+  LoginText: { "fontSize": 22, fontWeight: "700", marginLeft: "-72%",  marginTop: "-19%"},
+  LoginLabel: { "fontSize": 20, fontWeight: "600",  marginLeft: "-70%",  marginBottom: "1%"},
   LoginInputArea: {
-    "width": "100%", "borderWidth": 1,
+    "width": "100%", "borderWidth": 2,
     "borderColor": 'black', "height": 30 },
   LoginButton: {
-    "borderRadius": 5, "borderWidth": 1,
-    "borderColor": 'black', "width": "60%", "height": 30 },
+    "borderRadius": 10,
+    "borderColor": "black", "borderWidth": 2, "width": "65%", "height": 35,  "display": "flex", "flexDirection": "column",
+    "alignItems": "center", paddingTop: "2%" },
 
 });
 
@@ -41,6 +42,7 @@ class LoginInput extends React.Component {
     }
   handlelogin = (evt) => {
     // const urlreq = urltoreq + this.state.text;
+    if(this.state.text.length !==0  && this.state.text.length <= 15 ){
     axios.get(urltoreq)
       .then((response) => {
         console.log(response);
@@ -51,6 +53,7 @@ class LoginInput extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+    }
     
   }
   render() {
@@ -58,12 +61,15 @@ class LoginInput extends React.Component {
       <View style={styles.LoginInput}>
         <Text style={styles.LoginText}>Login </Text>
         
-        <Text> {"\n\n\n\n\n\n\n"}</Text>
+        <Text> {"\n\n\n\n"}</Text>
         <Text style={styles.LoginLabel}>Username </Text>
-          <TextInput style={styles.LoginInputArea} value={this.state.text} onChangeText={this.updatetextchange} />
+        <TextInput style={styles.LoginInputArea} value={this.state.text} maxLength={15} minLength={1} onChangeText={this.updatetextchange} />
           
-          <Text> {"\n\n\n\n\n\n\n"}</Text>
-          <Button style={styles.LoginButton} onPress={this.handlelogin} title="Login" /> 
+          <Text> {"\n\n"}</Text>
+          <TouchableOpacity style={styles.LoginButton} onPress={this.handlelogin}>
+           <Text style={{ fontWeight: "800" }}> Login </Text></TouchableOpacity >
+
+         
        
       </View>
     );

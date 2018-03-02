@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
-  View, Text, Button, StyleSheet
+  View, Text,  StyleSheet, TouchableOpacity 
 } from 'react-native';
 import { connect } from 'react-redux';
 import { playAgain } from '../../redux/actions';
@@ -13,50 +13,66 @@ const styles = StyleSheet.create({
   PointOuter:{
     "display": "flex", "flexDirection": "row", 
     "justifyContent": "space-around", 
-    "padding": 2, "backgroundColor": "#6BE5F0", "width": "60%", "height": 30, "margin": 10 },
+    "padding": 1, "backgroundColor": "#6BE5F0", "width": "90%", "height": 30, "margin": 10, "borderColor" : "black",
+  "borderWidth": 1 },
   
   SpecialOuter:{
     "display": "flex", "flexDirection": "row",
     "justifyContent": "space-around",
-    "padding": 2, "backgroundColor": "greenyellow", "width": "60%", "height": 30, "margin": 10
+    "padding": 1, "backgroundColor": "greenyellow", "width": "90%", "height": 30, "margin": 10, "borderColor" : "black",
+  "borderWidth": 1
   },
   
   PointIndex:
   {
-    "marginLeft": 30, "marginTop": 8
+    "marginLeft": 1, "marginTop": 5
   },
   PointUname:
   {
 "color": "white", "flexGrow": 4, 
-"marginLeft": 30, "marginTop": 8
+"marginLeft": 1, "marginTop": 5
   },
   PointScore:
   { "color": "white",
-   "marginRight": 30, "marginTop": 8 },
+   "marginRight": 1, "marginTop": 5 },
   ScoresContainer:
-  { "display": "flex", "flexDirection": "column", "flexGrow": 8, "backgroundColor": "white", "color": "black", "justifyContent": "space-around", "alignItems": "stretch", "overflow": "scroll" },
+  { "display": "flex", "flexDirection": "column", "flexGrow": 8, "backgroundColor": "white", "justifyContent": "space-around", "alignItems": "stretch" },
   ScoresHeader:
   {
-
+    "display": "flex", "flexDirection": "column",
   },
   Scorevalue:
-  { "marginLeft": 30 },
+  {
+    "marginLeft": 30, "display": "flex", "flexDirection": "column", "alignItems": "center",  "marginTop" : "30%",
+     },
   Orangetitle:
-  { "color": "orange" },
+  { 'color': 'orange', 'fontWeight': "900", 'fontSize': 25 },
   Bigscore:
-  { "fontSize": 60 },
+  {
+    "fontSize": 60, fontWeight: "200" },
   SmallScore:
-  { "fontSize": 40 },
+  {
+    "fontSize": 40, fontWeight: "500"  },
   ScoresTitle:
   { "alignItems": "center",
-   "textAlign": "center" },
+    "textAlign": "center" ,'fontSize': 30, 'fontWeight': "700",  'marginTop': "35%"  },
   Scores:
   { "overflow": "scroll", "justifyContent": "center", "display": "flex", "flexDirection": "column", 
-  "alignItems": "center" },
+  "alignItems": "center", "marginTop" : "40%"},
   BtnScoreContain: { "display": "flex", "height": 300, "justifyContent": "center",
    "alignItems": "center" },
-  Playagainbtn: { "borderRadius": 5,
-   "borderColor": "black", "borderWidth": 2, "width": "30%", "height": 30 },
+  Playagainbtn: { "borderRadius": 10,
+    "borderColor": "black", "borderWidth": 2, "width": "45%", "height": 35,  "display": "flex", "flexDirection": "column",
+    "alignItems": "center" , paddingTop: "2%" },
+  PlayerScoreContainer: {
+    "justifyContent": "center",
+    "alignItems": "center",
+    "margin" : "1%",
+  },
+  WelcomeUser :{
+    fontSize: 20, fontWeight: "700", color: 'black', marginTop: "25%", marginBottom: "5%", marginLeft: 10, "justifyContent": "flex-start",
+    "alignItems": "flex-start",
+  }
 
 });
 
@@ -76,6 +92,7 @@ class ScoresContainer extends React.Component {
       .then((response) => {
         console.log(response);
         // const obj = { questions: response.data, uname: this.state.text };
+    
         this.setState({ scoreRec: response.data });
       })
       .catch((error) => {
@@ -91,29 +108,26 @@ class ScoresContainer extends React.Component {
         classval = styles.SpecialOuter;
       }
       const val = (
-        <View style={classval}>
-          <View style={styles.PointIndex}><Text>{i + 1}. </Text></View>
-          <View style={styles.PointUname}> <Text>{this.state.scoreRec[i].uname}</Text> </View>
-            <View style={styles.PointScore}><Text> {this.state.scoreRec[i].score}</Text></View>
+        <View style={classval} key={i}>
+          <View ><Text style={styles.PointIndex}>{i + 1}.</Text></View>
+          <View ><Text style={styles.PointUname}>{this.state.scoreRec[i].uname}</Text></View>
+          <View ><Text style={styles.PointScore}>{this.state.scoreRec[i].score}</Text></View>
         </View>);
       displayscores.push(val);
     }
     return (
       <View style={styles.ScoresContainer}>
+        <Text style={styles.WelcomeUser}> Hello{this.props.uname}</Text>
         <View style={styles.ScoresHeader}>
           <View style={styles.Scorevalue}>
-            <View style={styles.Orangetitle}><Text> Your Score </Text></View>
-
-            <View style={styles.Bigscore}><Text>{this.props.score}/</Text></View>
-            <View style={styles.SmallScore}><Text>{this.props.questions.length}</Text></View>
-
+            <View ><Text style={styles.Orangetitle}>Your Score</Text></View>
+            <View style={styles.PlayerScoreContainer}><Text style={styles.Bigscore}>{this.props.score}<Text style={styles.SmallScore}>/{this.props.questions.length}</Text></Text></View>
           </View>
-
         </View>
-        <View style={styles.ScoresTitle}> <Text>Leaderboard </Text></View>
-        <View style={styles.Scores}><Text> {displayscores} </Text></View>
-        <View style={styles.BtnScoreContain}><Button style={styles.Playagainbtn} onPress={this.handlePlayAgain} title="Play Again/" />
-        </View>
+        <View><Text style={styles.ScoresTitle}>Leaderboard</Text></View>
+        <View style={styles.Scores}>{displayscores}</View>
+         <View style={styles.BtnScoreContain}><TouchableOpacity style={styles.Playagainbtn} onPress={this.handlePlayAgain}><Text style={ {fontWeight: "800"} }>Play Again</Text></TouchableOpacity>
+        </View> 
       </View>);
   }
 }
